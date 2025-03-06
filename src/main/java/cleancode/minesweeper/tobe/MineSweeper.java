@@ -10,12 +10,14 @@ public class MineSweeper implements GameInitializable, GameRunnalbe {
 
     private final GameBoard gameBoard;
     private final BoardIndexConverter boardIndexConverter = new BoardIndexConverter();
-    private final InputHandler inputHandler = new InputHandler();
-    private final OutputHandler outputHandler = new OutputHandler();
+    private final InputHandler inputHandler;
+    private final OutputHandler outputHandler;
     private int gameStatus = 0; // 0: 게임 중, 1: 승리, -1: 패배
 
-    public MineSweeper(GameLevel gameLevel) {
+    public MineSweeper(GameLevel gameLevel, InputHandler inputHandler, OutputHandler outputHandler) {
         gameBoard = new GameBoard(gameLevel);
+        this.inputHandler = inputHandler;
+        this.outputHandler = outputHandler;
     }
 
     @Override
@@ -31,11 +33,11 @@ public class MineSweeper implements GameInitializable, GameRunnalbe {
                 outputHandler.showBoard(gameBoard);
 
                 if (doesUserWinTheGame()) {
-                    outputHandler.printGameWinningComment();
+                    outputHandler.showGameWinningComment();
                     break;
                 }
                 if (doesUserLoseTheGame()) {
-                    outputHandler.printGameLosingComment();
+                    outputHandler.showGameLosingComment();
                     break;
                 }
 
@@ -43,9 +45,9 @@ public class MineSweeper implements GameInitializable, GameRunnalbe {
                 String userActionInput = getUserActionInputFromUser();
                 actOnCell(cellInput, userActionInput);
             } catch (GameException e) {
-                outputHandler.printExceptionMessage(e);
+                outputHandler.showExceptionMessage(e);
             } catch (Exception e) {
-                outputHandler.printSimpleMessage("프로그램에 문제가 생겼습니다.");
+                outputHandler.showSimpleMessage("프로그램에 문제가 생겼습니다.");
                 e.printStackTrace();
             }
         }
@@ -92,12 +94,12 @@ public class MineSweeper implements GameInitializable, GameRunnalbe {
 
 
     private String getUserActionInputFromUser() {
-        outputHandler.printCommentForUserAction();
+        outputHandler.showCommentForUserAction();
         return inputHandler.getUserInput();
     }
 
     private String getCellInputFromUser() {
-        outputHandler.printCommentForSelectingCell();
+        outputHandler.showCommentForSelectingCell();
         return inputHandler.getUserInput();
     }
 
