@@ -1,5 +1,6 @@
 package cleancode.minesweeper.tobe;
 
+
 import cleancode.minesweeper.tobe.cell.Cell;
 import cleancode.minesweeper.tobe.cell.EmptyCell;
 import cleancode.minesweeper.tobe.cell.LandMineCell;
