@@ -1,8 +1,8 @@
 package cleancode.minesweeper.tobe;
 
+import cleancode.minesweeper.tobe.config.GameConfig;
 import cleancode.minesweeper.tobe.game.GameInitializable;
 import cleancode.minesweeper.tobe.game.GameRunnalbe;
-import cleancode.minesweeper.tobe.gameLevel.GameLevel;
 import cleancode.minesweeper.tobe.io.InputHandler;
 import cleancode.minesweeper.tobe.io.OutputHandler;
 import cleancode.minesweeper.tobe.position.CellPosition;
@@ -15,10 +15,10 @@ public class MineSweeper implements GameInitializable, GameRunnalbe {
     private final OutputHandler outputHandler;
     private int gameStatus = 0; // 0: 게임 중, 1: 승리, -1: 패배
 
-    public MineSweeper(GameLevel gameLevel, InputHandler inputHandler, OutputHandler outputHandler) {
-        gameBoard = new GameBoard(gameLevel);
-        this.inputHandler = inputHandler;
-        this.outputHandler = outputHandler;
+    public MineSweeper(GameConfig gameConfig) {
+        gameBoard = new GameBoard(gameConfig.getGameLevel());
+        this.inputHandler = gameConfig.getInputHandler();
+        this.outputHandler = gameConfig.getOutputHandler();
     }
 
     @Override
@@ -100,7 +100,7 @@ public class MineSweeper implements GameInitializable, GameRunnalbe {
     private CellPosition getCellInputFromUser() {
         outputHandler.showCommentForSelectingCell();
         CellPosition cellPosition = inputHandler.getCellPositionFromUser();
-        if(gameBoard.isInvalidCellPosition(cellPosition)){
+        if (gameBoard.isInvalidCellPosition(cellPosition)) {
             throw new GameException("잘못된 좌표를 선택하셨습니다.");
         }
 
