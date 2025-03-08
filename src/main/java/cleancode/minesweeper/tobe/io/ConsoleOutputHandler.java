@@ -45,7 +45,7 @@ public class ConsoleOutputHandler implements OutputHandler {
         if (status == CellSnapshotStatus.EMPTY) {
             return EMPTY_SIGN;
         }
-        if (status == CellSnapshotStatus.FALG) {
+        if (status == CellSnapshotStatus.FLAG) {
             return FLAG_SIGN;
         }
         if (status == CellSnapshotStatus.LAND_MINE) {

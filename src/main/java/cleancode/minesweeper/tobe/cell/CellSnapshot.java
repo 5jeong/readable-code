@@ -21,7 +21,7 @@ public class CellSnapshot {
     }
 
     public static CellSnapshot ofFlag() {
-        return of(CellSnapshotStatus.FALG, 0);
+        return of(CellSnapshotStatus.FLAG, 0);
     }
 
     public static CellSnapshot ofLandMine() {
