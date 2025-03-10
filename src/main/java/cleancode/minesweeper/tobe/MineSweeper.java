@@ -9,8 +9,8 @@ import cleancode.minesweeper.tobe.position.CellPosition;
 import cleancode.minesweeper.tobe.user.UserAction;
 
 public class MineSweeper implements GameInitializable, GameRunnalbe {
-
     private final GameBoard gameBoard;
+
     private final InputHandler inputHandler;
     private final OutputHandler outputHandler;
 
@@ -54,6 +54,22 @@ public class MineSweeper implements GameInitializable, GameRunnalbe {
 
     }
 
+    private CellPosition getCellInputFromUser() {
+        outputHandler.showCommentForSelectingCell();
+        CellPosition cellPosition = inputHandler.getCellPositionFromUser();
+        if (gameBoard.isInvalidCellPosition(cellPosition)) {
+            throw new GameException("잘못된 좌표를 선택하셨습니다.");
+        }
+
+        return cellPosition;
+    }
+
+    private UserAction getUserActionInputFromUser() {
+        outputHandler.showCommentForUserAction();
+        return inputHandler.getUserActionFromUser();
+    }
+
+
     private void actOnCell(CellPosition cellPosition, UserAction userAction) {
 
         if (doesUserChooseToPlantFlag(userAction)) {
@@ -69,29 +85,12 @@ public class MineSweeper implements GameInitializable, GameRunnalbe {
 
     }
 
-    private boolean doesUserChooseToOpenCell(UserAction userAction) {
-        return userAction == UserAction.OPNE;
-    }
-
     private boolean doesUserChooseToPlantFlag(UserAction userAction) {
         return userAction == UserAction.FLAG;
     }
 
-
-    private UserAction getUserActionInputFromUser() {
-        outputHandler.showCommentForUserAction();
-        return inputHandler.getUserActionFromUser();
+    private boolean doesUserChooseToOpenCell(UserAction userAction) {
+        return userAction == UserAction.OPNE;
     }
-
-    private CellPosition getCellInputFromUser() {
-        outputHandler.showCommentForSelectingCell();
-        CellPosition cellPosition = inputHandler.getCellPositionFromUser();
-        if (gameBoard.isInvalidCellPosition(cellPosition)) {
-            throw new GameException("잘못된 좌표를 선택하셨습니다.");
-        }
-
-        return cellPosition;
-    }
-
 
 }
