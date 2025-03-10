@@ -29,7 +29,6 @@ public class GameBoard {
         initializeGameStatus();
     }
 
-    // 상태 변경
     public void initializeGame() {
         initializeGameStatus();
         CellPositions cellPositions = CellPositions.from(board);
@@ -60,8 +59,6 @@ public class GameBoard {
         checkIfGameIsOver();
     }
 
-
-    // 판별
     public boolean isInvalidCellPosition(CellPosition cellPosition) {
         int rowSize = getRowSize();
         int colSize = getColSize();
@@ -81,7 +78,6 @@ public class GameBoard {
         return gameStatus == GameStatus.LOSE;
     }
 
-    // 조회
     public CellSnapshot getSnapshot(CellPosition cellPosition) {
         Cell cell = findCell(cellPosition);
         return cell.getSnapshot();
@@ -187,7 +183,6 @@ public class GameBoard {
     }
 
     private boolean isAllCellChecked() {
-
         Cells cells = Cells.from(board);
         return cells.isAllChecked();
     }
