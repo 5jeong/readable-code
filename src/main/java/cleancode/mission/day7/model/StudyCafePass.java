@@ -47,4 +47,15 @@ public class StudyCafePass {
         return "";
     }
 
+    public int calculateDiscountPrice() {
+        return (int) (getPrice() * discountRate);
+    }
+
+    public int calculateTotalPrice(StudyCafeLockerPass lockerPass) {
+        return getPrice() - calculateDiscountPrice() + (lockerPass != null ? lockerPass.getPrice() : 0);
+    }
+
+    public boolean hasDiscount() {
+        return calculateDiscountPrice() > 0;
+    }
 }

@@ -33,8 +33,8 @@ public class OutputHandler {
     public void askLockerPass(StudyCafeLockerPass lockerPass) {
         System.out.println();
         String askMessage = String.format(
-            "사물함을 이용하시겠습니까? (%s)",
-            lockerPass.display()
+                "사물함을 이용하시겠습니까? (%s)",
+                lockerPass.display()
         );
 
         System.out.println(askMessage);
@@ -49,14 +49,11 @@ public class OutputHandler {
             System.out.println("사물함: " + lockerPass.display());
         }
 
-        double discountRate = selectedPass.getDiscountRate();
-        int discountPrice = (int) (selectedPass.getPrice() * discountRate);
-        if (discountPrice > 0) {
-            System.out.println("이벤트 할인 금액: " + discountPrice + "원");
+        if (selectedPass.hasDiscount()) {
+            System.out.println("이벤트 할인 금액: " + selectedPass.calculateDiscountPrice() + "원");
         }
 
-        int totalPrice = selectedPass.getPrice() - discountPrice + (lockerPass != null ? lockerPass.getPrice() : 0);
-        System.out.println("총 결제 금액: " + totalPrice + "원");
+        System.out.println("총 결제 금액: " + selectedPass.calculateTotalPrice(lockerPass) + "원");
         System.out.println();
     }
 
