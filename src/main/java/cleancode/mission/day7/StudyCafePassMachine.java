@@ -7,6 +7,7 @@ import cleancode.mission.day7.io.StudyCafeFileHandler;
 import cleancode.mission.day7.model.StudyCafeLockerPass;
 import cleancode.mission.day7.model.StudyCafePass;
 import cleancode.mission.day7.model.StudyCafePassType;
+import cleancode.mission.day7.model.StudyCafePasses;
 import java.util.List;
 
 public class StudyCafePassMachine {
@@ -19,12 +20,11 @@ public class StudyCafePassMachine {
         try {
             showStartMessage();
             StudyCafePassType studyCafePassType = inputHandler.getPassTypeSelectingUserAction();
-            List<StudyCafePass> studyCafePasses = studyCafeFileHandler.readStudyCafePasses();
-            List<StudyCafePass> selectedPasses = selectPassByType(studyCafePasses, studyCafePassType);
+            StudyCafePasses studyCafePasses = StudyCafePasses.of(studyCafeFileHandler.readStudyCafePasses());
+            StudyCafePasses selectedPasses = studyCafePasses.filterByType(studyCafePassType);
 
             if (selectedPasses.isEmpty()) {
-                outputHandler.showSimpleMessage("해당 유형의 이용권이 없습니다.");
-                return;
+                throw new AppException("해당 유형의 이용권이 없습니다.");
             }
 
             showPassListForSelection(selectedPasses);
@@ -52,11 +52,6 @@ public class StudyCafePassMachine {
                 .orElse(null);
     }
 
-    private List<StudyCafePass> selectPassByType(List<StudyCafePass> studyCafePasses, StudyCafePassType type) {
-        return studyCafePasses.stream()
-                .filter(studyCafePass -> studyCafePass.getPassType() == type)
-                .toList();
-    }
 
     private void showStartMessage() {
         outputHandler.showWelcomeMessage();
@@ -65,7 +60,7 @@ public class StudyCafePassMachine {
         outputHandler.askPassTypeSelection();
     }
 
-    private void showPassListForSelection(List<StudyCafePass> hourlyPasses) {
+    private void showPassListForSelection(StudyCafePasses hourlyPasses) {
         outputHandler.showPassListForSelection(hourlyPasses);
     }
 
