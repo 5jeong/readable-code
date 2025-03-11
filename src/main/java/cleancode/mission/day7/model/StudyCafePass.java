@@ -26,12 +26,16 @@ public class StudyCafePass {
         return duration;
     }
 
-    public int getPrice() {
-        return price;
+    public int calculateDiscountPrice() {
+        return (int) (price * discountRate);
     }
 
-    public double getDiscountRate() {
-        return discountRate;
+    public int calculateTotalPrice(StudyCafeLockerPass lockerPass) {
+        return price - calculateDiscountPrice() + (lockerPass != null ? lockerPass.getPrice() : 0);
+    }
+
+    public boolean hasDiscount() {
+        return calculateDiscountPrice() > 0;
     }
 
     public String display() {
@@ -45,17 +49,5 @@ public class StudyCafePass {
             return String.format("%s주권 - %d원", duration, price);
         }
         return "";
-    }
-
-    public int calculateDiscountPrice() {
-        return (int) (getPrice() * discountRate);
-    }
-
-    public int calculateTotalPrice(StudyCafeLockerPass lockerPass) {
-        return getPrice() - calculateDiscountPrice() + (lockerPass != null ? lockerPass.getPrice() : 0);
-    }
-
-    public boolean hasDiscount() {
-        return calculateDiscountPrice() > 0;
     }
 }
