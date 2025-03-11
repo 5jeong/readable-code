@@ -41,4 +41,8 @@ public class StudyCafePass {
     public String display() {
         return passType.format(duration, price);
     }
+
+    public boolean findByOption(StudyCafeLockerPass lockerPass) {
+        return passType == lockerPass.getPassType() && duration == lockerPass.getDuration();
+    }
 }

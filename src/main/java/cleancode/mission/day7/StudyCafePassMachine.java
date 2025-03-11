@@ -5,6 +5,7 @@ import cleancode.mission.day7.io.InputHandler;
 import cleancode.mission.day7.io.OutputHandler;
 import cleancode.mission.day7.io.StudyCafeFileHandler;
 import cleancode.mission.day7.model.StudyCafeLockerPass;
+import cleancode.mission.day7.model.StudyCafeLockerPasses;
 import cleancode.mission.day7.model.StudyCafePass;
 import cleancode.mission.day7.model.StudyCafePassType;
 import cleancode.mission.day7.model.StudyCafePasses;
@@ -30,7 +31,7 @@ public class StudyCafePassMachine {
             showPassListForSelection(selectedPasses);
             StudyCafePass selectedPass = inputHandler.getSelectPass(selectedPasses);
 
-            StudyCafeLockerPass lockerPass = getLockerPassIfAvalilable(selectedPass);
+            StudyCafeLockerPass lockerPass = getLockerPassIfAvailable(selectedPass);
             boolean lockerSelection = lockerPass != null && userWantsLocker(lockerPass);
 
             outputHandler.showPassOrderSummary(selectedPass, lockerSelection ? lockerPass : null);
@@ -41,17 +42,11 @@ public class StudyCafePassMachine {
         }
     }
 
-    private StudyCafeLockerPass getLockerPassIfAvalilable(StudyCafePass selectedPass) {
+    private StudyCafeLockerPass getLockerPassIfAvailable(StudyCafePass selectedPass) {
         List<StudyCafeLockerPass> lockerPasses = studyCafeFileHandler.readLockerPasses();
-        return lockerPasses.stream()
-                .filter(option ->
-                        option.getPassType() == selectedPass.getPassType()
-                                && option.getDuration() == selectedPass.getDuration()
-                )
-                .findFirst()
-                .orElse(null);
+        StudyCafeLockerPasses studyCafeLockerPasses = StudyCafeLockerPasses.of(lockerPasses);
+        return studyCafeLockerPasses.findLockerPassFrom(selectedPass);
     }
-
 
     private void showStartMessage() {
         outputHandler.showWelcomeMessage();
