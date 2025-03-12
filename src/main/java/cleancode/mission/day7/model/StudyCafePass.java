@@ -22,10 +22,6 @@ public class StudyCafePass {
         return passType;
     }
 
-    public int getDuration() {
-        return duration;
-    }
-
     public int calculateDiscountPrice() {
         return (int) (price * discountRate);
     }

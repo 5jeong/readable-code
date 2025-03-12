@@ -9,7 +9,6 @@ import cleancode.mission.day7.model.StudyCafeLockerPasses;
 import cleancode.mission.day7.model.StudyCafePass;
 import cleancode.mission.day7.model.StudyCafePassType;
 import cleancode.mission.day7.model.StudyCafePasses;
-import java.util.List;
 
 public class StudyCafePassMachine {
 
@@ -20,18 +19,17 @@ public class StudyCafePassMachine {
     public void run() {
         try {
             showStartMessage();
-            StudyCafePassType studyCafePassType = inputHandler.getPassTypeSelectingUserAction();
-            StudyCafePasses studyCafePasses = StudyCafePasses.of(studyCafeFileHandler.readStudyCafePasses());
-            StudyCafePasses selectedPasses = studyCafePasses.filterByType(studyCafePassType);
 
-            if (selectedPasses.isEmpty()) {
-                throw new AppException("해당 유형의 이용권이 없습니다.");
-            }
+            StudyCafePassType studyCafePassType = inputHandler.getPassTypeSelectingUserAction();
+            StudyCafePasses allStudyCafePasses = studyCafeFileHandler.readStudyCafePasses();
+            StudyCafePasses selectedPasses = allStudyCafePasses.filterByType(studyCafePassType);
 
             showPassListForSelection(selectedPasses);
             StudyCafePass selectedPass = inputHandler.getSelectPass(selectedPasses);
 
-            StudyCafeLockerPass lockerPass = getLockerPassIfAvailable(selectedPass);
+            StudyCafeLockerPasses allLockerPasses = studyCafeFileHandler.readLockerPasses();
+            StudyCafeLockerPass lockerPass = allLockerPasses.findLockerPassFrom(selectedPass);
+
             boolean lockerSelection = lockerPass != null && userWantsLocker(lockerPass);
 
             outputHandler.showPassOrderSummary(selectedPass, lockerSelection ? lockerPass : null);
@@ -42,16 +40,10 @@ public class StudyCafePassMachine {
         }
     }
 
-    private StudyCafeLockerPass getLockerPassIfAvailable(StudyCafePass selectedPass) {
-        List<StudyCafeLockerPass> lockerPasses = studyCafeFileHandler.readLockerPasses();
-        StudyCafeLockerPasses studyCafeLockerPasses = StudyCafeLockerPasses.of(lockerPasses);
-        return studyCafeLockerPasses.findLockerPassFrom(selectedPass);
-    }
 
     private void showStartMessage() {
         outputHandler.showWelcomeMessage();
         outputHandler.showAnnouncement();
-
         outputHandler.askPassTypeSelection();
     }
 

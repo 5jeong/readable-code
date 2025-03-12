@@ -20,8 +20,8 @@ public enum StudyCafePassType {
         return number;
     }
 
-    public String format(int duration,int price){
-        return format.formatted(duration,price);
+    public String format(int duration, int price) {
+        return format.formatted(duration, price);
     }
 
 }

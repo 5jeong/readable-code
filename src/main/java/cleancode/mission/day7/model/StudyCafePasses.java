@@ -18,7 +18,7 @@ public class StudyCafePasses {
         List<StudyCafePass> filteredPasses = studyCafePasses.stream()
                 .filter(studyCafePass -> studyCafePass.getPassType() == type)
                 .toList();
-        return new StudyCafePasses(filteredPasses);
+        return of(filteredPasses);
     }
 
     public boolean isEmpty() {
