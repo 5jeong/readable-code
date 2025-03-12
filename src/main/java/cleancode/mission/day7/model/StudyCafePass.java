@@ -1,25 +1,16 @@
 package cleancode.mission.day7.model;
 
-public class StudyCafePass {
+public class StudyCafePass extends StudyCafeBasePass{
 
-    private final StudyCafePassType passType;
-    private final int duration;
-    private final int price;
     private final double discountRate;
 
     private StudyCafePass(StudyCafePassType passType, int duration, int price, double discountRate) {
-        this.passType = passType;
-        this.duration = duration;
-        this.price = price;
+        super(passType,duration,price);
         this.discountRate = discountRate;
     }
 
     public static StudyCafePass of(StudyCafePassType passType, int duration, int price, double discountRate) {
         return new StudyCafePass(passType, duration, price, discountRate);
-    }
-
-    public StudyCafePassType getPassType() {
-        return passType;
     }
 
     public int calculateDiscountPrice() {
@@ -34,9 +25,6 @@ public class StudyCafePass {
         return calculateDiscountPrice() > 0;
     }
 
-    public String display() {
-        return passType.format(duration, price);
-    }
 
     public boolean findByOption(StudyCafeLockerPass lockerPass) {
         return passType == lockerPass.getPassType() && duration == lockerPass.getDuration();
