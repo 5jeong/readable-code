@@ -14,7 +14,7 @@ public class StudyCafeLockerPasses {
         return new StudyCafeLockerPasses(lockerPasses);
     }
 
-    public StudyCafeLockerPass findLockerPassFrom(StudyCafePass selectedPass) {
+    public StudyCafeLockerPass findLockerPassFrom(StudyCafeSeatPass selectedPass) {
         return lockerPasses.stream()
                 .filter(selectedPass::findByOption)
                 .findFirst()

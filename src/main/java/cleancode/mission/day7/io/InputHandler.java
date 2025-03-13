@@ -1,9 +1,9 @@
 package cleancode.mission.day7.io;
 
 import cleancode.mission.day7.exception.AppException;
-import cleancode.mission.day7.model.StudyCafePass;
+import cleancode.mission.day7.model.StudyCafeSeatPass;
 import cleancode.mission.day7.model.StudyCafePassType;
-import cleancode.mission.day7.model.StudyCafePasses;
+import cleancode.mission.day7.model.StudyCafeSeatPasses;
 import java.util.Scanner;
 
 public class InputHandler {
@@ -25,7 +25,7 @@ public class InputHandler {
         throw new AppException("잘못된 입력입니다.");
     }
 
-    public StudyCafePass getSelectPass(StudyCafePasses passes) {
+    public StudyCafeSeatPass getSelectPass(StudyCafeSeatPasses passes) {
         String userInput = SCANNER.nextLine();
         int selectedIndex = Integer.parseInt(userInput) - 1;
         return passes.get(selectedIndex);

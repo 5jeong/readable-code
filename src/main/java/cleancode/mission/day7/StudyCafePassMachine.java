@@ -6,9 +6,9 @@ import cleancode.mission.day7.io.OutputHandler;
 import cleancode.mission.day7.io.StudyCafeFileHandler;
 import cleancode.mission.day7.model.StudyCafeLockerPass;
 import cleancode.mission.day7.model.StudyCafeLockerPasses;
-import cleancode.mission.day7.model.StudyCafePass;
+import cleancode.mission.day7.model.StudyCafeSeatPass;
 import cleancode.mission.day7.model.StudyCafePassType;
-import cleancode.mission.day7.model.StudyCafePasses;
+import cleancode.mission.day7.model.StudyCafeSeatPasses;
 
 public class StudyCafePassMachine {
 
@@ -21,11 +21,11 @@ public class StudyCafePassMachine {
             showStartMessage();
 
             StudyCafePassType studyCafePassType = inputHandler.getPassTypeSelectingUserAction();
-            StudyCafePasses allStudyCafePasses = studyCafeFileHandler.readStudyCafePasses();
-            StudyCafePasses selectedPasses = allStudyCafePasses.filterByType(studyCafePassType);
+            StudyCafeSeatPasses allStudyCafeSeatPasses = studyCafeFileHandler.readStudyCafePasses();
+            StudyCafeSeatPasses selectedPasses = allStudyCafeSeatPasses.filterByType(studyCafePassType);
 
             showPassListForSelection(selectedPasses);
-            StudyCafePass selectedPass = inputHandler.getSelectPass(selectedPasses);
+            StudyCafeSeatPass selectedPass = inputHandler.getSelectPass(selectedPasses);
 
             StudyCafeLockerPasses allLockerPasses = studyCafeFileHandler.readLockerPasses();
             StudyCafeLockerPass lockerPass = allLockerPasses.findLockerPassFrom(selectedPass);
@@ -47,7 +47,7 @@ public class StudyCafePassMachine {
         outputHandler.askPassTypeSelection();
     }
 
-    private void showPassListForSelection(StudyCafePasses hourlyPasses) {
+    private void showPassListForSelection(StudyCafeSeatPasses hourlyPasses) {
         outputHandler.showPassListForSelection(hourlyPasses);
     }
 

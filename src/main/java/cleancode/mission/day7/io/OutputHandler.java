@@ -1,8 +1,8 @@
 package cleancode.mission.day7.io;
 
 import cleancode.mission.day7.model.StudyCafeLockerPass;
-import cleancode.mission.day7.model.StudyCafePass;
-import cleancode.mission.day7.model.StudyCafePasses;
+import cleancode.mission.day7.model.StudyCafeSeatPass;
+import cleancode.mission.day7.model.StudyCafeSeatPasses;
 
 public class OutputHandler {
 
@@ -21,11 +21,11 @@ public class OutputHandler {
         System.out.println("1. 시간 이용권(자유석) | 2. 주단위 이용권(자유석) | 3. 1인 고정석");
     }
 
-    public void showPassListForSelection(StudyCafePasses passes) {
+    public void showPassListForSelection(StudyCafeSeatPasses passes) {
         System.out.println();
         System.out.println("이용권 목록");
         for (int index = 0; index < passes.size(); index++) {
-            StudyCafePass pass = passes.get(index);
+            StudyCafeSeatPass pass = passes.get(index);
             System.out.println(String.format("%s. ", index + 1) + pass.display());
         }
     }
@@ -41,7 +41,7 @@ public class OutputHandler {
         System.out.println("1. 예 | 2. 아니오");
     }
 
-    public void showPassOrderSummary(StudyCafePass selectedPass, StudyCafeLockerPass lockerPass) {
+    public void showPassOrderSummary(StudyCafeSeatPass selectedPass, StudyCafeLockerPass lockerPass) {
         System.out.println();
         System.out.println("이용 내역");
         System.out.println("이용권: " + selectedPass.display());
